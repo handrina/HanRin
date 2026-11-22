@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HanRin_SLS | Beauty Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --blue: #243e65;
+    --light-blue: #eaf1fa;
+    --silver: #c5ccd5;
+    --orange: #ed9658;
+    --cream: #fbfaf8;
+    --white: #fff;
+    --text: #26364c;
+    --muted: #8994a3;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+html {scroll-behavior:smooth;}
+body {font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+button,input,select,textarea {font-family:inherit;}
+button {cursor:pointer;border:none;}
+a {text-decoration:none;color:inherit;}
+
+.navbar {
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #e8edf3;
+}
+.nav-container {
+    max-width:1200px;margin:auto;padding:17px 5%;
+    display:flex;justify-content:space-between;align-items:center;
+}
+.logo {
+    font-family:'Playfair Display',serif;
+    font-size:27px;font-weight:700;color:var(--blue);
+}
+.logo span {color:var(--orange);}
+.nav-links {display:flex;gap:28px;}
+.nav-links a {font-size:13px;font-weight:600;color:#64748b;}
+.nav-links a:hover {color:var(--orange);}
+.cart-button {
+    background:var(--blue);color:white;padding:11px 18px;
+    border-radius:30px;font-size:13px;font-weight:600;
+}
+.cart-count {background:var(--orange);padding:2px 7px;border-radius:20px;margin-left:5px;}
+
+.hero {max-width:1200px;margin:35px auto;padding:0 5%;}
+.hero-box {
+    min-height:440px;border-radius:28px;overflow:hidden;
+    background:linear-gradient(100deg,rgba(21,43,75,.94),rgba(39,66,103,.65)),
+    url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1600&q=85');
+    background-size:cover;background-position:center;
+    display:flex;align-items:center;padding:60px;color:white;
+}
+.hero-content {max-width:570px;}
+.hero-tag {
+    display:inline-block;color:#ffd2ad;
+    border:1px solid #ffffff66;padding:9px 17px;
+    border-radius:30px;font-size:11px;letter-spacing:2px;margin-bottom:22px;
+}
+.hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(40px,6vw,67px);line-height:1.12;margin-bottom:20px;
+}
+.hero h1 span {color:#ffb47f;}
+.hero p {color:#e1e8f1;font-size:14px;line-height:1.9;margin-bottom:30px;}
+.primary-btn {
+    display:inline-block;padding:14px 28px;border-radius:30px;
+    background:var(--orange);color:white;font-weight:700;font-size:13px;
+}
+.primary-btn:hover {background:#d77e43;transform:translateY(-3px);}
+
+.benefits {
+    max-width:1100px;margin:45px auto;padding:0 5%;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.benefit {
+    background:white;border:1px solid #edf0f4;border-radius:17px;
+    padding:22px;display:flex;align-items:center;gap:15px;
+}
+.benefit-icon {
+    width:45px;height:45px;background:var(--light-blue);
+    color:var(--blue);border-radius:14px;display:grid;place-items:center;font-size:21px;
+}
+.benefit h4 {font-size:13px;margin-bottom:5px;}
+.benefit p {font-size:11px;color:var(--muted);}
+
+.section {max-width:1200px;padding:55px 5%;margin:auto;}
+.section-heading {text-align:center;margin-bottom:35px;}
+.section-heading small {color:var(--orange);font-weight:700;letter-spacing:3px;font-size:10px;}
+.section-heading h2 {
+    font-family:'Playfair Display',serif;font-size:37px;
+    color:var(--blue);margin:10px 0;
+}
+.section-heading p {font-size:13px;color:var(--muted);}
+
+.shop-tools {
+    display:flex;justify-content:space-between;align-items:center;
+    gap:15px;margin-bottom:30px;flex-wrap:wrap;
+}
+.search-box {flex:1;min-width:200px;}
+.search-box input {
+    width:100%;padding:14px 20px;border:1px solid #e4e9ef;
+    background:white;border-radius:30px;outline:none;font-size:13px;
+}
+.search-box input:focus {border-color:var(--orange);}
+.categories {display:flex;gap:8px;flex-wrap:wrap;}
+.category-btn {
+    background:white;border:1px solid #e7ebf0;color:#718096;
+    padding:11px 17px;border-radius:25px;font-size:11px;font-weight:600;
+}
+.category-btn.active,.category-btn:hover {
+    background:var(--blue);color:white;border-color:var(--blue);
+}
+
+.product-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.product-card {
+    background:white;border:1px solid #edf0f4;border-radius:19px;
+    overflow:hidden;transition:.3s;
+}
+.product-card:hover {transform:translateY(-7px);box-shadow:0 12px 35px #243e6518;}
+.product-image {height:230px;background:#f1f4f8;overflow:hidden;position:relative;}
+.product-image img {width:100%;height:100%;object-fit:cover;transition:.5s;}
+.product-card:hover .product-image img {transform:scale(1.07);}
+.product-label {
+    position:absolute;top:13px;left:13px;background:var(--orange);
+    color:white;font-size:9px;padding:6px 11px;border-radius:20px;font-weight:700;
+}
+.product-info {padding:17px;}
+.product-category {font-size:9px;color:var(--orange);font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.product-info h3 {font-size:14px;margin:8px 0;color:var(--blue);}
+.product-desc {color:var(--muted);font-size:11px;line-height:1.6;min-height:34px;}
+.product-bottom {display:flex;justify-content:space-between;align-items:center;margin-top:17px;}
+.product-price {font-size:14px;font-weight:700;color:var(--blue);}
+.add-btn {
+    background:var(--blue);color:white;width:36px;height:36px;
+    border-radius:50%;font-size:20px;
+}
+.add-btn:hover {background:var(--orange);}
+.empty-message {display:none;text-align:center;padding:40px;color:var(--muted);grid-column:1/-1;}
+
+.promo {max-width:1100px;margin:30px auto 70px;padding:0 5%;}
+.promo-box {
+    border-radius:25px;padding:45px;
+    background:linear-gradient(115deg,#dce7f3,#f5e7df);
+    display:flex;justify-content:space-between;align-items:center;gap:25px;
+}
+.promo-box h2 {font-family:'Playfair Display',serif;color:var(--blue);font-size:30px;margin-bottom:10px;}
+.promo-box p {color:#718096;font-size:12px;line-height:1.8;}
+
+.about-box {
+    background:white;border:1px solid #edf0f4;border-radius:22px;
+    padding:40px;text-align:center;max-width:800px;margin:auto;
+}
+.about-box h3 {font-family:'Playfair Display',serif;color:var(--blue);font-size:27px;margin-bottom:15px;}
+.about-box p {color:#8490a0;font-size:13px;line-height:2;}
+
+.cart-overlay {
+    position:fixed;inset:0;background:#0f1e5070;z-index:200;
+    opacity:0;visibility:hidden;transition:.3s;
+}
+.cart-overlay.show {opacity:1;visibility:visible;}
+.cart-panel {
+    position:fixed;right:-450px;top:0;height:100%;width:min(420px,100%);
+    background:white;z-index:201;padding:25px;transition:.35s;
+    display:flex;flex-direction:column;overflow-y:auto;
+}
+.cart-panel.show {right:0;}
+.cart-header {display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #edf0f4;padding-bottom:20px;}
+.cart-header h2 {font-family:'Playfair Display',serif;color:var(--blue);}
+.close-cart {background:#edf2f8;width:35px;height:35px;border-radius:50%;color:var(--blue);font-size:19px;}
+.cart-items {flex:1;overflow-y:auto;padding:20px 0;}
+.cart-item {display:flex;gap:13px;margin-bottom:20px;align-items:center;}
+.cart-item img {width:65px;height:65px;object-fit:cover;border-radius:12px;}
+.cart-item-info {flex:1;}
+.cart-item-info h4 {font-size:12px;color:var(--blue);margin-bottom:5px;}
+.cart-item-info p {color:var(--orange);font-size:12px;font-weight:700;}
+.quantity {display:flex;gap:9px;align-items:center;margin-top:7px;}
+.quantity button {width:23px;height:23px;border-radius:50%;background:#edf2f8;color:var(--blue);}
+.remove-btn {background:none;color:#d67c69;font-size:18px;}
+.cart-footer {border-top:1px solid #edf0f4;padding-top:20px;}
+.total-row {display:flex;justify-content:space-between;font-weight:700;color:var(--blue);margin-bottom:18px;}
+.checkout-btn {
+    width:100%;background:var(--orange);color:white;
+    padding:15px;border-radius:30px;font-weight:700;
+}
+.checkout-section {display:none;padding:20px;background:#f7f9fc;border-radius:17px;margin-top:15px;}
+.checkout-section.show {display:block;}
+.checkout-section h3 {font-family:'Playfair Display',serif;color:var(--blue);margin-bottom:17px;}
+.checkout-section input,.checkout-section select,.checkout-section textarea {
+    width:100%;padding:12px;margin-bottom:12px;border:1px solid #e1e6ee;
+    border-radius:10px;outline:none;background:white;font-size:12px;
+}
+.checkout-section textarea {resize:vertical;min-height:65px;}
+.checkout-section label {display:block;font-size:11px;font-weight:700;color:var(--blue);margin-bottom:6px;}
+
+footer {background:#1d3455;color:white;padding:50px 5% 20px;}
+.footer-content {
+    max-width:1100px;margin:auto;
+    display:grid;grid-template-columns:2fr 1fr 1fr;gap:35px;
+}
+.footer-logo {font-family:'Playfair Display',serif;font-size:27px;margin-bottom:15px;}
+.footer-content p {color:#b7c3d2;font-size:12px;line-height:1.9;}
+.footer-content h4 {margin-bottom:15px;font-size:13px;color:#ffc49e;}
+.footer-links {display:flex;flex-direction:column;gap:12px;font-size:12px;color:#c6d0dc;}
+.footer-bottom {
+    max-width:1100px;margin:35px auto 0;padding-top:20px;
+    border-top:1px solid #405573;text-align:center;color:#b7c3d2;font-size:10px;
+}
+
+@media(max-width:900px) {
+    .product-grid {grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:650px) {
+    .nav-container {padding:15px 4%;}
+    .logo {font-size:21px;}
+    .nav-links {display:none;}
+    .hero {margin-top:20px;}
+    .hero-box {min-height:390px;padding:30px;background-position:60% center;}
+    .hero h1 {font-size:42px;}
+    .benefits {grid-template-columns:1fr;margin:30px auto;}
+    .product-grid {grid-template-columns:repeat(2,1fr);gap:12px;}
+    .product-image {height:170px;}
+    .product-info {padding:12px;}
+    .product-info h3 {font-size:12px;}
+    .product-desc {font-size:10px;}
+    .product-price {font-size:12px;}
+    .shop-tools {align-items:stretch;}
+    .categories {overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px;}
+    .category-btn {white-space:nowrap;}
+    .section-heading h2 {font-size:29px;}
+    .promo-box {padding:30px;flex-direction:column;align-items:flex-start;}
+    .about-box {padding:27px;}
+    .footer-content {grid-template-columns:1fr 1fr;}
+    .footer-content>div:first-child {grid-column:1/-1;}
+}
+@media(max-width:380px) {
+    .product-grid {grid-template-columns:1fr;}
+    .product-image {height:240px;}
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+        <a href="#" class="logo">HanRin<span>_SLS</span></a>
+        <nav class="nav-links">
+            <a href="#home">Beranda</a>
+            <a href="#produk">Produk</a>
+            <a href="#tentang">Tentang Kami</a>
+            <a href="#kontak">Kontak</a>
+        </nav>
+        <button class="cart-button" onclick="openCart()">
+            🛍️ Keranjang <span class="cart-count" id="cartCount">0</span>
+        </button>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-box">
+        <div class="hero-content">
+            <span class="hero-tag">WELCOME TO HANRIN_SLS</span>
+            <h1>Beauty Begins<br>With <span>You.</span></h1>
+            <p>
+                Temukan produk kecantikan favoritmu dengan pilihan
+                berkualitas, harga bersahabat, dan pengalaman belanja
+                yang menyenangkan.
+            </p>
+            <a href="#produk" class="primary-btn">Jelajahi Produk →</a>
+        </div>
+    </div>
+</section>
+
+<section class="benefits">
+    <div class="benefit">
+        <div class="benefit-icon">✦</div>
+        <div><h4>Produk Pilihan</h4><p>Pilihan produk untuk kebutuhanmu</p></div>
+    </div>
+    <div class="benefit">
+        <div class="benefit-icon">♡</div>
+        <div><h4>Belanja Mudah</h4><p>Pemesanan praktis dan cepat</p></div>
+    </div>
+    <div class="benefit">
+        <div class="benefit-icon">✉️</div>
+        <div><h4>Pesan via WhatsApp</h4><p>Konfirmasi pesanan langsung</p></div>
+    </div>
+</section>
+
+<section class="section" id="produk">
+    <div class="section-heading">
+        <small>OUR COLLECTION</small>
+        <h2>Discover Your Beauty</h2>
+        <p>Temukan produk favorit yang membuat harimu lebih istimewa.</p>
+    </div>
+
+    <div class="shop-tools">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Cari produk favoritmu..." oninput="renderProducts()">
+        </div>
+        <div class="categories">
+            <button class="category-btn active" onclick="filterCategory('Semua',this)">Semua</button>
+            <button class="category-btn" onclick="filterCategory('Skincare',this)">Skincare</button>
+            <button class="category-btn" onclick="filterCategory('Makeup',this)">Makeup</button>
+            <button class="category-btn" onclick="filterCategory('Bodycare',this)">Bodycare</button>
+            <button class="category-btn" onclick="filterCategory('Haircare',this)">Haircare</button>
+        </div>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section class="promo">
+    <div class="promo-box">
+        <div>
+            <h2>Feel Beautiful, Be Confident.</h2>
+            <p>
+                Karena setiap orang memiliki kecantikan yang unik.<br>
+                Temukan pilihan terbaikmu bersama HanRin_SLS.
+            </p>
+        </div>
+        <a href="#produk" class="primary-btn">Belanja Sekarang →</a>
+    </div>
+</section>
+
+<section class="section" id="tentang">
+    <div class="section-heading">
+        <small>ABOUT US</small>
+        <h2>About HanRin_SLS</h2>
+    </div>
+    <div class="about-box">
+        <h3>Beauty is Your Own Story.</h3>
+        <p>
+            HanRin_SLS merupakan toko online yang menyediakan berbagai
+            pilihan produk kecantikan untuk mendukung kebutuhan perawatan
+            dan penampilan sehari-hari. Kami ingin memberikan pengalaman
+            berbelanja yang praktis, nyaman, dan menyenangkan melalui
+            pilihan produk yang beragam serta pelayanan yang mudah diakses.
+        </p>
+    </div>
+</section>
+
+<footer id="kontak">
+    <div class="footer-content">
+        <div>
+            <div class="footer-logo">HanRin_SLS</div>
+            <p>
+                Your beauty, your confidence.<br>
+                Temukan pilihan produk kecantikan favoritmu bersama kami.
+            </p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <div class="footer-links">
+                <a href="#home">Beranda</a>
+                <a href="#produk">Produk</a>
+                <a href="#tentang">Tentang Kami</a>
+            </div>
+        </div>
+        <div>
+            <h4>Customer Service</h4>
+            <div class="footer-links">
+                <a href="#" onclick="contactAdmin();return false;">WhatsApp Admin</a>
+                <a href="#produk">Katalog Produk</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 HanRin_SLS. All Rights Reserved.
+    </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<aside class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+        <h2>Keranjang Belanja</h2>
+        <button class="close-cart" onclick="closeCart()">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+        <div class="total-row">
+            <span>Total Belanja</span>
+            <span id="cartTotal">Rp0</span>
+        </div>
+
+        <button class="checkout-btn" onclick="showCheckout()">
+            Lanjutkan Pemesanan →
+        </button>
+
+        <div class="checkout-section" id="checkoutSection">
+            <h3>Detail Pemesanan</h3>
+
+            <form id="checkoutForm">
+                <label>Nama Lengkap</label>
+                <input type="text" id="customerName" placeholder="Masukkan nama lengkap" required>
+
+                <label>Nomor WhatsApp</label>
+                <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx" required>
+
+                <label>Alamat Pengiriman</label>
+                <textarea id="customerAddress" placeholder="Masukkan alamat lengkap" required></textarea>
+
+                <label>Metode Pembayaran</label>
+                <select id="paymentMethod" required>
+                    <option value="">Pilih metode pembayaran</option>
+                    <option value="Transfer Bank">Transfer Bank</option>
+                    <option value="DANA">DANA</option>
+                    <option value="OVO">OVO</option>
+                    <option value="COD">COD (Bayar di Tempat)</option>
+                </select>
+
+                <label>Catatan Tambahan</label>
+                <textarea id="customerNote" placeholder="Catatan pesanan (opsional)"></textarea>
+
+                <button type="submit" class="checkout-btn">
+                    Konfirmasi Pesanan via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+</aside>
+
+<!-- Logika JavaScript -->
+<script>
+    // 1. Masukkan URL Apps Script Anda (/exec) dan Nomor WhatsApp Admin di bawah ini:
+    const API_URL = "https://script.google.com/macros/s/AKfycbz2I0cZNtFle2XXcmXXcrMS88GCw_Jqd1vjITtNCogxz6BfPCf2yLhBmtKBEVnWJeoWUQ/exec";
+    const WA_ADMIN = "6287814185830"; // Format: 628xxxxxxxxxx (awalan 62)
+
+    // 2. DATA PRODUK
+    // Ganti nama, harga, kategori, dan gambar sesuai produk asli.
+    const products = [
+        {
+            id:1,
+            name:"Glow Serum",
+            category:"Skincare",
+            price:85000,
+            description:"Serum wajah untuk membantu merawat kulit.",
+            image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600"
+        },
+        {
+            id:2,
+            name:"Hydrating Moisturizer",
+            category:"Skincare",
+            price:75000,
+            description:"Melembapkan kulit agar terasa lebih nyaman.",
+            image:"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=600"
+        },
+        {
+            id:3,
+            name:"Daily Sunscreen",
+            category:"Skincare",
+            price:65000,
+            description:"Perawatan perlindungan kulit sehari-hari.",
+            image:"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=600"
+        },
+        {
+            id:4,
+            name:"Velvet Lip Tint",
+            category:"Makeup",
+            price:45000,
+            description:"Warna bibir cantik dengan tampilan lembut.",
+            image:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600"
+        },
+        {
+            id:5,
+            name:"Matte Foundation",
+            category:"Makeup",
+            price:95000,
+            description:"Membantu menciptakan tampilan makeup merata.",
+            image:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600"
+        },
+        {
+            id:6,
+            name:"Blush On Palette",
+            category:"Makeup",
+            price:55000,
+            description:"Warna pipi cantik untuk tampilan segar.",
+            image:"https://images.unsplash.com/photo-1617220828486-8b7c5e2c1a0c?w=600"
+        },
+        {
+            id:7,
+            name:"Body Lotion",
+            category:"Bodycare",
+            price:60000,
+            description:"Membantu menjaga kelembapan kulit tubuh.",
+            image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600"
+        },
+        {
+            id:8,
+            name:"Body Scrub",
+            category:"Bodycare",
+            price:50000,
+            description:"Perawatan tubuh untuk kulit terasa halus.",
+            image:"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=600"
+        },
+        {
+            id:9,
+            name:"Hair Serum",
+            category:"Haircare",
+            price:70000,
+            description:"Perawatan rambut agar tampak lebih terawat.",
+            image:"https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600"
+        },
